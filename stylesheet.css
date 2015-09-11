@@ -1,11 +1,13 @@
+/* Color palette:
+   http://paletton.com/palette.php?uid=70I0u0kllllaFw0g0qFqFg0w0aF#.VfMZsOsWwhc.gmail */
 #big_header {
 	font-size: 300%;
 }
 h1 {
-	color: #2B4F71;
 }
 body {
-	background-color: #FFC6AA;
+	background-color: #FFEAAA;
+	color: #123652;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 img {
