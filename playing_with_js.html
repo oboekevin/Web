@@ -1,0 +1,39 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Playing with JS</title>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+	<script>
+		function update(x) {
+			document.getElementById("output").innerHTML = x;
+		}
+		function set_time() {
+			d = new Date();
+			hr = d.getHours();
+			m = d.getMinutes();
+			time = "" + (hr % 12) + ":" + ((m < 10) ? "0" + m : m);
+			document.getElementById("time").innerHTML = time;
+		}
+		count = 0
+		function inc_cookie() {
+			count = count + 1;
+			document.getElementById("cookie").innerHTML = "" + count;
+			// alert(count);
+		}
+	</script>
+</head>
+<body onload="set_time();">	
+	<h1>JS Challenges</h1>
+	<ol>
+		<li> <button onclick='alert("17 + 12 = " + (17 + 12));'>17 + 12</button> </li>
+		<li> <button onclick='update("1654 * 723 = " + (1654 * 723))'>1654 * 723</button> (result in output area)</li>
+		<li> <input type="text" id="text_box_1" value="" oninput="update(this.value);" /> (type to alter text in output area)</li>
+		<li>The time is <span id="time" >text</span> </li>
+		<li> <button id="cookie" onclick='inc_cookie();'>Cookie Clicker</button> </li>
+	</ol>
+	<b>Output:</b>
+	<div id="output">
+		hi 
+	</div>
+</body>
+</html>
