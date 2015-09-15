@@ -8,13 +8,23 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 </head>
-<body onload="make_table(); start_timer();">
-	<h1 id="big_header">Gen 6 Pokemon Quiz</h1>
+<body onload="onload();">
+	<h1 id="top_header">Gen 6 Pokemon Quiz</h1>
 	<span id="timing">Time remaining: <span id="timer">20</span></span> <br/><br/>
-	Response: <input type="text" id="input_box" value="" oninput="input_answer(this.value);" />
+	Response: <input type="text" id="input_box" value="" disabled="disabled" oninput="input_answer(this.value);" />
 	<br/>
 	<table id="pkmn_table">
 
 	</table>
+	<button id="start_button" onclick="start_game();">Start</button>
+	<button id="quit_button" onclick="end_game();">Quit</button>
+	<button id="reset_button" onclick="reset_game();">Reset</button>
 </body>
 </html>
+
+<!--
+	To do:
+	-progress bar
+	-start, quit, reset buttons
+	-clearer win/lose at end
+-->
