@@ -25,6 +25,10 @@ a:visited, a:link {
 a:hover {
 	color: #565695;
 }
-table {
-	width: 100%;
+td {
+	border: 1px solid;
+	width: 10em;
+}
+#timing {
+	font-size: 200%;
 }

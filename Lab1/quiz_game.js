@@ -7,6 +7,19 @@ var num_pokemon = last_id - first_id + 1;
 var count = first_id;
 var number_completed = 0;
 
+function input_answer(text) {
+	// alert('hi');
+	for (k = 0; k < num_pokemon; k++) {
+		if (pkmn_list[k] == text) {
+			if (document.getElementById("pkmn" + (k + first_id)).innerHTML == "?????") {
+				document.getElementById("pkmn" + (k + first_id)).innerHTML = (k + first_id) + " - " + pkmn_list[k];
+				number_completed++;
+				document.getElementById("input_box").value = "";
+			}
+		}
+	}
+};
+
 function make_table() {
 	var table_text = "";
 	for (r = 0; r < ROWS; r++) {
@@ -20,14 +33,15 @@ function make_table() {
 	document.getElementById("pkmn_table").innerHTML = table_text;
 };
 
-// function input_answer(text) {
-// 	alert('hi')
-// 	for (k = 0; k < num_pokemon; k++) {
-// 		if (pkmn_list[k] == text) {
-// 			if (document.getElementById("pkmn" + (k + first_id)).innerHTML == "?????") {
-// 				document.getElementById("pkmn" + (k + first_id)).innerHTML = (k + first_id) + " - " pkmn_list[k];
-// 				document.getElementById("input_box").value = "";
-// 			}
-// 		}
-// 	}
-// };
+function start_timer() {
+	var interval_id = setInterval(function() {
+		var time = parseInt(document.getElementById('timer').innerHTML)
+		if (time == 0) {
+			clearInterval(interval_id);
+			document.getElementById('timing').innerHTML = ('Result: ' + number_completed + " / " + num_pokemon)
+			document.getElementById('input_box').setAttribute('disabled', 'disabled');
+		} else {
+			document.getElementById('timer').innerHTML = "" + (time - 1)
+		}
+	}, 1000);
+};
