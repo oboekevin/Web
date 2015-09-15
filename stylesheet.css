@@ -10,25 +10,10 @@ body {
 	color: #123652;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-img {
-	height: 4 cm;
-	width: 4 cm;
-}
-.hype {
-	color: #FF0000;
-	font-weight: bold;
-}
 a:visited, a:link {
 	color: inherit;
 	text-decoration: none;
 }
 a:hover {
 	color: #565695;
-}
-td {
-	border: 1px solid;
-	width: 10em;
-}
-#timing {
-	font-size: 200%;
 }
