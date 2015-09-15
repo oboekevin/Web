@@ -4,6 +4,8 @@
 	<title>Quiz Game</title>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
 	<script src="quiz_game.js"> </script>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 </head>
 <body onload="make_table()">
 	<h1>Gen 6 Pokemon Quiz</h1>
@@ -11,6 +13,7 @@
 	<ul>
 		<li>ID numbers 650-719</li>
 	</ul>
+	<input type="text" id="input_box" value="" onupdate="input_answer(this.value);" />
 	<table id="pkmn_table">
 
 	</table>
