@@ -10,15 +10,15 @@
 </head>
 <body onload="onload();">
 	<h1 id="top_header">Gen 6 Pokemon Quiz</h1>
-	<span id="timing">Time remaining: <span id="timer">20</span></span> <br/><br/>
+	<span id="timing">Press "Start" to begin!</span> <br/><br/>
 	Response: <input type="text" id="input_box" value="" disabled="disabled" oninput="input_answer(this.value);" />
 	<br/>
 	<table id="pkmn_table">
 
 	</table>
-	<button id="start_button" onclick="start_game();">Start</button>
+	<button id="start_button" onclick="new_game();">Start</button>
 	<button id="quit_button" onclick="end_game();">Quit</button>
-	<button id="reset_button" onclick="reset_game();">Reset</button>
+	<button id="reset_button" onclick="new_game();">Reset</button>
 </body>
 </html>
 

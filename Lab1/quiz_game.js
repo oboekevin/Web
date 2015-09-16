@@ -4,8 +4,9 @@ var COLS = 5;
 var first_id = 650;
 var last_id = 654; // 719;
 var num_pokemon = last_id - first_id + 1;
-var count = first_id;
 var number_completed = 0;
+var total_time = 20;
+var interval_id;
 
 function input_answer(text) {
 	// alert('hi');
@@ -24,6 +25,7 @@ function input_answer(text) {
 };
 
 function make_table() {
+	var count = first_id;
 	var table_text = "";
 	for (r = 0; r < ROWS; r++) {
 		table_text += "<tr>\n";
@@ -36,39 +38,44 @@ function make_table() {
 	document.getElementById("pkmn_table").innerHTML = table_text;
 };
 
+function timer_helper() {
+	var time = parseInt(document.getElementById('timer').innerHTML);
+	if (time == 0) {
+		end_game();
+	} else {
+		document.getElementById('timer').innerHTML = "" + (time - 1)
+	}
+}
+
 function start_timer() {
-	var interval_id = setInterval(function() {
-		var time = parseInt(document.getElementById('timer').innerHTML)
-		if (time == 0) {
-			clearInterval(interval_id);
-			end_game();
-		} else {
-			document.getElementById('timer').innerHTML = "" + (time - 1)
-		}
-	}, 1000);
+	interval_id = setInterval(timer_helper, 1000);
 };
 
 function onload() {
 	make_table();
 	document.getElementById('start_button').removeAttribute('disabled');
+	document.getElementById('quit_button').setAttribute('disabled', 'disabled');
 }
 
-function start_game() {
-	document.getElementById('input_box').removeAttribute('disabled');
-	document.getElementById('start_button').setAttribute('disabled', 'disabled');
-	start_timer();
-};
-
-function reset_game() {
-	document.getElementById('input_box').removeAttribute('disabled');
+function new_game() {
 	make_table();
+	document.getElementById('start_button').setAttribute('disabled', 'disabled');
+
+	document.getElementById('input_box').value = "";
+	document.getElementById('quit_button').removeAttribute('disabled');
+	document.getElementById('input_box').removeAttribute('disabled');
+	document.getElementById('input_box').focus();
+	document.getElementById('timing').innerHTML = "Time remaining: <span id=\"timer\">20</span>";
 	start_timer();
 }
 
 function end_game() {
+	clearInterval(interval_id);
 	message = 'Result: ' + number_completed + " / " + num_pokemon
 	message += " - ";
 	message += (num_pokemon == number_completed) ? "you won!" : "you lost";
 	document.getElementById('timing').innerHTML = message
 	document.getElementById('input_box').setAttribute('disabled', 'disabled');
+	document.getElementById('quit_button').setAttribute('disabled', 'disabled');
+	number_completed = 0;
 }
