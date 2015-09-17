@@ -10,7 +10,8 @@
 </head>
 <body onload="onload();">
 	<h1 id="top_header">Gen 6 Pokemon Quiz</h1>
-	<span id="timing">Press "Start" to begin!</span> <br/><br/>
+	<span id="timing">Press "Start" to begin!</span> <br/>
+	<span id="progress"></span> <br/><br/>
 	Response: <input type="text" id="input_box" value="" disabled="disabled" oninput="input_answer(this.value);" />
 	<br/>
 	<table id="pkmn_table">
@@ -18,7 +19,10 @@
 	</table>
 	<button id="start_button" onclick="new_game();">Start</button>
 	<button id="quit_button" onclick="end_game();">Quit</button>
-	<button id="reset_button" onclick="new_game();">Reset</button>
+	<button id="reset_button" onclick="new_game();">Reset</button> <br/>
+	<p>Instructions: Once you press start, you will have 300 seconds to type (properly capitalized) Gen 6 Pokemon names into the response box. Note: you don't have to click on the response box and you don't have to hit enter to input a response. If you succeed in filling out the entire table before the time reaches 0, you win! Otherwise, you lose and can try again. Hint: the first Gen 6 Pokemon is Chespin, no. 650.</p>
+	<button id="test_button" onclick="test_mode();">Test Mode</button> <br/>
+	<span id="cheat_sheet">Test mode decreases the number of Pokemon from 70 to 5, decreases the time from 300 s to 20 s, and gives you the answers for those 5 so you can test what happens when you win.</span>
 </body>
 </html>
 
