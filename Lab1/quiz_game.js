@@ -9,11 +9,12 @@ var total_time = 300;
 var interval_id;
 
 function test_mode() {
+	end_game();
 	ROWS = 1;
-	last_id = 654;
+	last_id = 656;
 	num_pokemon = last_id - first_id + 1;
-	total_time = 20;
-	var cheat = "First 5 Gen 6 Pokemon: ";
+	total_time = 30;
+	var cheat = "First 7 Gen 6 Pokemon: ";
 	for (k = 0; k < num_pokemon; k++) {
 		cheat += pkmn_list[k];
 		if (k < num_pokemon - 1) { 
@@ -27,7 +28,7 @@ function test_mode() {
 function input_answer(text) {
 	// alert('hi');
 	for (k = 0; k < num_pokemon; k++) {
-		if (pkmn_list[k] == text) {
+		if (pkmn_list[k].toUpperCase() == text.toUpperCase()) {
 			if (document.getElementById("pkmn" + (k + first_id)).innerHTML == "?????") {
 				document.getElementById("pkmn" + (k + first_id)).innerHTML = (k + first_id) + " - " + pkmn_list[k];
 				number_completed++;
@@ -75,6 +76,7 @@ function onload() {
 }
 
 function new_game() {
+	end_game();
 	make_table();
 	document.getElementById('start_button').setAttribute('disabled', 'disabled');
 
