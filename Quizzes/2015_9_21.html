@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>HTML Skills Quiz</title>
+	<style>
+		body {
+			background-color: #A2E4FA;
+		}
+		table {
+			border: 1px solid #000000;
+		}
+		td {
+			border: 1px solid #000000;
+		}
+	</style>
+	<script type="text/javascript">
+		scale = {A: 4, B: 3, C: 2, D: 1, F: 0}
+		function update_gpa(){
+			q1 = document.getElementById("q1");
+			gpa1 = q1.options[q1.selectedIndex].value;
+			q2 = document.getElementById("q2");
+			gpa2 = q2.options[q2.selectedIndex].value;
+			// alert(gpa1 + gpa2);
+			gpa = (scale[gpa1] + scale[gpa2]) / 2;
+			// alert(gpa);
+			document.getElementById("gpa").innerHTML = gpa;
+		}
+	</script>
+</head>
+<body onload="update_gpa();">
+	<h1>Period 4</h1>
+	<h1>Kevin Chaplin</h1>
+
+	<table>
+		<tr>
+			<td>GPA:</td>
+			<td><span id="gpa"></span></td>
+		</tr>
+		<tr>
+			<td>Quarter 1:</td>
+			<td><select id="q1" onchange="update_gpa();">
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+				<option value="D">D</option>
+				<option value="F">F</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>Quarter 2:</td>
+			<td><select id="q2" onchange="update_gpa();">
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+				<option value="D">D</option>
+				<option value="F">F</option>
+			</select></td>
+		</tr>
+	</table>
+
+</body>
+</html>
