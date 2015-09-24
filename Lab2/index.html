@@ -13,7 +13,12 @@
 	<div id="quiz_zone">
 		<img id="picture" src="" /> <br/>
 		<span id="question"></span> <br/>
-		<input id="response" type="text" oninput="check_answer(this.value);" value = "" />
+		<input id="response" type="text" value="" oninput="check_answer(this.value);" />
+		<button id="pass" onclick="next_question();">Pass</button>
+	</div> <br/>
+	<div id="results">
+		<span id="score"></span> <br/>
+		<button id="reset" onclick="reset_game();">Reset</button> 
 	</div>
 </body>
 </html>
