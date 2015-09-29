@@ -10,6 +10,9 @@
 </head>
 <body onload="">
 	<h1>Quiz Game #2</h1>
+	<div id="timing">
+		<span id="timer"></span>
+	</div>
 	<div id="quiz_zone">
 		<img id="picture" src="" /> <br/>
 		<span id="question"></span> <br/>
@@ -19,6 +22,10 @@
 	<div id="results">
 		<span id="score"></span> <br/>
 		<button id="reset" onclick="reset_game();">Reset</button> 
+	</div>
+	<div id="options">
+		<button id="start" onclick="reset_game();">Start</button>
+		<button id="quit" onclick="end_game();">Quit</button>
 	</div>
 </body>
 </html>

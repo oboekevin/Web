@@ -1,0 +1,29 @@
+div, p, ul, ol, li, span {
+	border-radius: 5px;
+	border: 1px solid black;
+	padding: 3px;
+	margin: 3px;
+}
+
+div {
+	background-color: #496D89;
+}
+p {
+	background-color: #806515;
+}
+body {
+	color: black;
+}
+span {
+	background-color: #123652;
+}
+.blue {
+	background-color: #224662;
+}
+.red {
+	background-color: #902825;
+}
+/*
+background-color: #565695
+background-color: #8080B3;
+*/
