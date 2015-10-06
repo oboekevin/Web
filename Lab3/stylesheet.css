@@ -17,6 +17,12 @@ body {
 span {
 	background-color: #123652;
 }
+ol, ul {
+	background-color: #565695;
+}
+ul, .blue, .red {
+	padding-left: 20px;
+}
 .blue {
 	background-color: #224662;
 }
@@ -24,6 +30,6 @@ span {
 	background-color: #902825;
 }
 /*
-background-color: #565695
-background-color: #8080B3;
+background-color: #8080B3
+
 */

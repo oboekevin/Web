@@ -6,9 +6,10 @@ function magic(event) {
 	// element_after(ele).style.backgroundColor = "green";
 };
 function element_after(ele, skip) {
-	if (skip == true) {
-		//
-	} else {
+	if (ele.parentElement == null) {
+		return ele;
+	}
+	if (skip != true) {
 		if (ele.childElementCount > 0) {
 			// alert('hi')
 			return ele.firstElementChild;
