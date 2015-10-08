@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Course Index</title>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+	<link rel="stylesheet" type="text/css" href="../stylesheet.css" />
+	<script src="./forms.js"></script>
+</head>
+<body onload="main();">
+	<h1 id="big_header">Life Goals Survey</h1>
+	<form autocomplete="on">
+		<table>
+			<tr>
+				<td>Username:</td>
+				<td><input type="text" name="username" autofocus /></td>
+			</tr>
+			<tr>
+				<td>City:</td>
+				<td><input type="text" name="city" /></td>
+			</tr>
+			<tr>
+				<td>State:</td>
+				<td><input type="text" name="state" /></td>
+			</tr>
+			<tr>
+				<td>Zip Code:</td>
+				<td><input type="text" name="zip" /></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="email" name="email" /></td>
+			</tr>
+			<tr>
+				<td>Date:</td>
+				<td><input type="date" name="date" /></td>
+			</tr>
+			<tr>
+				<td>Genre</td>
+				<td>
+					<input type="radio" name="pick_drop" onselect="choose_drop('a');" value="a" checked> Dropdown List A
+					<br>
+					<input type="radio" name="pick_drop" onselect="choose_drop('b');" value="b"> Dropdown List B
+				</td>
+			</tr>
+			<tr>
+				<td>Food Challenges</td>
+				<td>
+					<select>
+						<option onselect="challenge_type('spice');">Spiciness</option>
+						<option onselect="challenge_type('quant');">Quantity</option>
+						<option onselect="challenge_type('qual');">Quality</option>
+						<option onselect="challenge_type('fat');">Fat</option>
+						<option onselect="challenge_type('??');">??</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Pick your poison</td>
+				<td id="food"></td>
+			</tr>	
+		</table>
+		<br/><input type="submit" value="submit" />
+	</form>
+	
+	<br/><br/><a href="../">Back to Homepage</a>
+</body>
+</html>
