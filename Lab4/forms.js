@@ -8,25 +8,22 @@ function main() {
 	// document.getElementByName("username").focus();
 }
 
-function choose_drop(which) {
-	if (which == 'a') {
-		//
-	} else if (which == 'b') {
-		//
-	} else {
-		alert("Error! Tried to pick a choice other than a or b.")
-	}
-}
-
-function challenge_type(which) {
-	alert('hi')
+function challenge_type(select) {
+	// alert('hi');
+	which = select.options[select.selectedIndex].value;
 	var choices = food_challenges[which];
 	var where_to_go = document.getElementById('food');
+
+	while (where_to_go.firstChild) {
+		where_to_go.removeChild(where_to_go.firstChild);
+	}
+
 	for (var i = 0; i < choices.length; i++) {
 		var ele = document.createElement('input');
 		ele.type = 'checkbox';
 		ele.name = which + i;
-		ele.appendChild(document.createTextNode(choices[i]));
 		where_to_go.appendChild(ele);
+		where_to_go.appendChild(document.createTextNode(choices[i]));
+		where_to_go.appendChild(document.createElement("br"));
 	}
 }

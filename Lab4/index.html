@@ -37,20 +37,20 @@
 			<tr>
 				<td>Genre</td>
 				<td>
-					<input type="radio" name="pick_drop" onselect="choose_drop('a');" value="a" checked> Dropdown List A
+					<input type="radio" name="pick_drop" onchange="document.getElementById('drop').size = 5;" value="a" checked> List view
 					<br>
-					<input type="radio" name="pick_drop" onselect="choose_drop('b');" value="b"> Dropdown List B
+					<input type="radio" name="pick_drop" onchange="document.getElementById('drop').size = 0;" value="b"> Dropdown view
 				</td>
 			</tr>
 			<tr>
 				<td>Food Challenges</td>
 				<td>
-					<select>
-						<option onselect="challenge_type('spice');">Spiciness</option>
-						<option onselect="challenge_type('quant');">Quantity</option>
-						<option onselect="challenge_type('qual');">Quality</option>
-						<option onselect="challenge_type('fat');">Fat</option>
-						<option onselect="challenge_type('??');">??</option>
+					<select id="drop" onchange="challenge_type(this);" size="5">
+						<option value="spice">Spiciness</option>
+						<option value="quant">Quantity</option>
+						<option value="qual">Quality</option>
+						<option value="fat">Fat</option>
+						<option value="??">??</option>
 					</select>
 				</td>
 			</tr>
