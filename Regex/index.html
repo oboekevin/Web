@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Course Index</title>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+	<link rel="stylesheet" type="text/css" href="../stylesheet.css" />
+	<script src="regex.js"></script>
+</head>
+<body onload="init();">
+	<h1>Regex Challenges</h1>
+
+	<form name="f">
+	<table>
+		<tr>
+			<td>
+				<input type="text" name="r" oninput="check(this, /r/);" autofocus />
+			</td>
+			<td>
+				<p>Anything that has the letter 'r' in it</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" name="number" oninput="check(this, /\d/);" />
+			</td>
+			<td>
+				<p>Anything that has at least one number in it</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" name="bb" oninput="check(this, /bb/);" />
+			</td>
+			<td>
+				<p>Anything that has two 'b's in a row</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" name="phone" oninput="check(this, /^\d\d\d-\d\d\d-\d\d\d\d$/);" placeholder="703-123-4567" />
+			</td>
+			<td>
+				<p>Phone number</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" name="website" oninput="check(this, /www\.\w+\.\w+/);" />
+			</td>
+			<td>
+				<p>Website (has www, ends in .something)</p>
+			</td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>
