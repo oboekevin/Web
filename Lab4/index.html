@@ -8,31 +8,35 @@
 </head>
 <body onload="main();">
 	<h1 id="big_header">Life Goals Survey</h1>
-	<form autocomplete="on">
+	<form id="f" name="f" autocomplete="on" onsubmit="return validate_form();">
 		<table>
 			<tr>
 				<td>Username:</td>
-				<td><input type="text" name="username" autofocus /></td>
+				<td><input required type="text" name="username" autofocus /></td>
 			</tr>
 			<tr>
 				<td>City:</td>
-				<td><input type="text" name="city" /></td>
+				<td><input required type="text" name="city" /></td>
 			</tr>
 			<tr>
 				<td>State:</td>
-				<td><input type="text" name="state" /></td>
+				<td><input required type="text" name="state" /></td>
 			</tr>
 			<tr>
 				<td>Zip Code:</td>
-				<td><input type="text" name="zip" /></td>
+				<td><input required type="text" name="zip" /></td>
 			</tr>
 			<tr>
 				<td>Email:</td>
-				<td><input type="email" name="email" /></td>
+				<td><input required type="email" name="email" /></td>
 			</tr>
 			<tr>
 				<td>Date:</td>
-				<td><input type="date" name="date" /></td>
+				<td><input required type="date" name="date" placeholder="dd/mm/yy" /></td>
+			</tr>
+			<tr>
+				<td>Phone:</td>
+				<td><input required type="text" name="phone" placeholder="703-123-4567" /></td>
 			</tr>
 			<tr>
 				<td>Genre</td>
@@ -48,16 +52,20 @@
 					<select id="drop" onchange="challenge_type(this);" size="5">
 						<option value="spice">Spiciness</option>
 						<option value="quant">Quantity</option>
-						<option value="qual">Quality</option>
+						<option value="qual">Haute Cuisine</option>
 						<option value="fat">Fat</option>
-						<option value="??">??</option>
+						<option value="??">Strangeness</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>Pick your poison</td>
 				<td id="food"></td>
-			</tr>	
+			</tr>
+			<tr>
+				<td>Additional Comments</td>
+				<td><textarea form="f" rows="10" cols="32"></textarea></td>
+			</tr>
 		</table>
 		<br/><input type="submit" value="submit" />
 	</form>
