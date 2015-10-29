@@ -1,6 +1,7 @@
 <?php
 $letters = $_REQUEST["set"];
-// search through stuff
-echo json_encode("none for now");
-// preg_match(string $pattern, string $subject)
+$pattern = "/^[" . $letters . "]+$/m"
+$dict = file_get_contents("dictionnary.txt")
+preg_match($pattern, $dict, $matches)
+echo json_encode($matches);
 ?>
