@@ -1,0 +1,15 @@
+#result {
+	width: 40em;
+}
+#best {
+}
+.box {
+	border-width: 2px;
+	border-style: solid;
+	border-color: inherit;
+	/*padding: 3px 3px 3px 3px;*/
+	margin: 3px 3px 3px 3px;
+	display: inline-block;
+
+	/*background-color: #CCCCFF;*/
+}
