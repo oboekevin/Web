@@ -39,6 +39,7 @@ function getWords() {
 	xmlhttp.open("GET", "scrabble.php?"+dw_encodeVars(args), true);
 	xmlhttp.send();
 }
+
 function dw_encodeVars(params) {
 	var str = '';
 	for (var i in params ) {
