@@ -5,13 +5,22 @@
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
 </head>
 <body>
-	<canvas height=600 width=600 id="canvas" onclick="drawDot(event);" ></canvas>
+	<!-- <canvas height=600 width=600 id="canvas" onclick="makeDot(event);" ></canvas> -->
+	<canvas height=600 width=600 id="canvas" onmousedown="mouseWentDown(event);" onmouseup="mouseWentUp(event);" ></canvas>
 	<br/>
-	<input type="button" onclick="clearCanvas();" value="Clear" />
-	<input type="button" onclick="connectDots();" value="Make Edges" />
-	<input type="button" onclick="colorDots();" value="Color Dots" />
-	<input type="button" onclick="uncolorDots();" value="Clear Dots" />
-
+	<strong>For all dots:</strong><br/>
+	<input type="button" onclick="clearCanvas();" value="Clear Canvas" />
+	<input type="button" onclick="connectDots(dots);" value="Make Edges"  />
+	<input type="button" onclick="colorDots(dots);" value="Color Dots" /> *
+	<input type="button" onclick="uncolorDots(dots);" value="Uncolor Dots" /> *
+	<br/>
+	<strong>For selected dots:</strong><br/>
+	<input type="button" onclick="clearSelection();" value="Clear Selection" />
+	<input type="button" onclick="connectDots(selected);" value="Make Edges" />
+	<input type="button" onclick="colorDots(selected);" value="Color Dots" /> *
+	<input type="button" onclick="uncolorDots(selected);" value="Uncolor Dots" /> *
+	<br/></br><p>*Note: selected dots show as blue regardless of their color property, 
+	but once deselected they will show as their true color.</p>
 </body>
 </html>
 
