@@ -1,6 +1,12 @@
 var dots = new Array();
-var selected = new Array();
-var mouse_down = null
+// var selected = new Array();
+var mouse_down = null;
+// var R = 10;
+
+function selected(dot) {
+	return dot.selected;
+}
+
 function distance(p1, p2) {
 	return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2));
 }
@@ -15,6 +21,14 @@ function between(a, b, x) {
 	}
 }
 
+function keyDown(event) {
+	//
+}
+
+function keyUp(event) {
+	//
+}
+
 function mouseWentDown(event) {
 	var c = document.getElementById("canvas");
 	mouse_down = {x: event.x - c.offsetLeft, y: event.y - c.offsetTop};
@@ -22,14 +36,49 @@ function mouseWentDown(event) {
 
 function mouseWentUp(event) {
 	var c = document.getElementById("canvas");
+	var ctx = c.getContext('2d');
 	mouse_up = {x: event.x - c.offsetLeft, y: event.y - c.offsetTop};
 	dist = distance(mouse_down, mouse_up);
 	// console.log(dist);
 	if (dist < 2) {
-		makeDot(event);
+		if (dots.filter(selected).length > 0 && !window.event.ctrlKey) {
+			clearSelection();
+		} else {
+			var close_to_a_dot = false;
+			var dot_found = null;
+			dots.forEach(function(dot) {
+				if (distance(mouse_up, dot) < dot.r) {
+					dot.selected = true;
+					close_to_a_dot = true;
+					dot_found = dot;
+				}
+			})
+			if (close_to_a_dot) {
+				refillDots([dot_found]);
+			} else {
+				makeDot(event);
+			}
+		}
 	} else {
-		clearSelection();
+		if (!window.event.ctrlKey) {	
+			clearSelection(); 
+		}
 		selectDots(mouse_down, mouse_up);
+	}
+	mouse_down = null;
+	ctx.clearRect(0, 0, c.width, c.height);
+	refillDots(dots);
+}
+
+function mouseMoved(event) {
+	var c = document.getElementById("canvas");
+	var ctx = c.getContext('2d');
+	m = {x: event.x - c.offsetLeft, y: event.y - c.offsetTop};
+	if (mouse_down) {
+		ctx.clearRect(0, 0, c.width, c.height);
+		refillDots(dots);
+		ctx.rect(m.x, m.y, mouse_down.x - m.x, mouse_down.y - m.y);
+		ctx.stroke();
 	}
 }
 
@@ -39,7 +88,7 @@ function selectDots(md, mu) {
 	dots.forEach(function(dot) {
 		if (between(md.x, mu.x, dot.x) && between (md.y, mu.y, dot.y)) {
 			// console.log("we got a hit");
-			selected.push(dot);
+			// selected.push(dot);
 			dot.selected = true;
 		}
 	})
@@ -47,11 +96,10 @@ function selectDots(md, mu) {
 }
 
 function clearSelection() {
-	selected.forEach(function(dot) {
+	dots.forEach(function(dot) {
 		dot.selected = false;
 	})
 	refillDots(dots);
-	selected = new Array();
 }
 
 function clearCanvas() {
@@ -72,7 +120,7 @@ function makeDot(event) {
 
 function drawDot(ctx, dot) {
 	ctx.beginPath();
-	ctx.arc(dot.x, dot.y, 10, 0, 2 * Math.PI);
+	ctx.arc(dot.x - dot.r, dot.y - dot.r, dot.r, 0, 2 * Math.PI);
 	ctx.fillStyle = dot.color;
 	if (dot.selected) {
 		ctx.fillStyle = "blue";
