@@ -8,7 +8,7 @@
 	<!-- <canvas height=600 width=600 id="canvas" onclick="makeDot(event);" ></canvas> -->
 	<table>
 	<tr>
-	<td><canvas height=600 width=600 id="canvas" onmousedown="mouseWentDown(event);" onmouseup="mouseWentUp(event);" onmousemove="mouseMoved(event);" onkeydown="keyDown(event);" onkeyup="keyUp(event);"></canvas></td>
+	<td><canvas height=600 width=600 id="canvas" onmousedown="mouseWentDown(event);" onmouseup="mouseWentUp(event);" onmousemove="mouseMoved(event);" ></canvas></td>
 	<td>
 		<strong>For all dots:</strong><br/>
 		<input type="button" onclick="clearCanvas();" value="Clear Canvas" /><br/>
@@ -22,10 +22,12 @@
 		<input type="button" onclick="colorDots(dots.filter(selected));" value="Color Dots" /> * <br/>
 		<input type="button" onclick="uncolorDots(dots.filter(selected));" value="Uncolor Dots" /> * <br/>
 		<br/><p>*Note: selected dots show as blue regardless of their color property, <br/>
-		but once deselected they will show as their true color.</p>
+		but once deselected they will show as their true color.</p><br/>
+		<input type="button" onclick="saveDots();" value="Save Dots" />
 	</td>
 	</tr>
 	</table>
+	<div id="waiting"></div>
 	
 	<br/>
 	</body>

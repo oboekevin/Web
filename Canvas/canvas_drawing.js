@@ -21,14 +21,6 @@ function between(a, b, x) {
 	}
 }
 
-function keyDown(event) {
-	//
-}
-
-function keyUp(event) {
-	//
-}
-
 function mouseWentDown(event) {
 	var c = document.getElementById("canvas");
 	mouse_down = {x: event.x - c.offsetLeft, y: event.y - c.offsetTop};
@@ -133,8 +125,8 @@ function connectDots(dots) {
 	var ctx = getContext();
 	dots.forEach(function(dot) {
 		for (var i = 0; i < dots.length; i++) {
-			ctx.moveTo(dot.x, dot.y);
-			ctx.lineTo(dots[i].x, dots[i].y);
+			ctx.moveTo(dot.x - dot.r, dot.y - dot.r);
+			ctx.lineTo(dots[i].x - dots[i].r, dots[i].y - dots[i].r);
 			ctx.stroke();
 		};
 	});
@@ -166,4 +158,38 @@ function uncolorDots(dots) {
 function getContext() {
 	var c = document.getElementById("canvas");
 	return c.getContext('2d');
+}
+
+function saveDots() {
+	if (dots.length == 0)
+		return;
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		document.getElementById("waiting").innerHTML = 'waiting';
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			document.getElementById("waiting").innerHTML = xmlhttp.responseText;
+			// document.getElementById("waiting").innerHTML = 'saved';
+		}
+	}
+	var args = {
+		rs: dots.map(function(dot) { return dot.r; }),
+		xs: dots.map(function(dot) { return dot.x; }),
+		ys: dots.map(function(dot) { return dot.y; }),
+		colors: dots.map(function(dot) { return dot.color; }),
+		selecteds: dots.map(function(dot) { return dot.selected; })
+	};
+	console.log(args);
+	console.log(dots);
+	console.log(dw_encodeVars(args, true));
+	xmlhttp.open("GET", "save_dots.php?"+dw_encodeVars(args), true);
+	// xmlhttp.open("GET", "save_dots.php?" + JSON.stringify(args), true);
+	xmlhttp.send();
+}
+
+function dw_encodeVars(params) {
+	var str = '';
+	for (var i in params ) {
+		str += encodeURIComponent(i) + '=' + encodeURIComponent( params[i] ) + '&';
+	}
+	return str.slice(0, -1);
 }
