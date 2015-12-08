@@ -16,7 +16,8 @@ $selecteds = explode(",", $_REQUEST["selecteds"]);
 // yay parallel arrays
 // intval
 for ($i=0; $i < count($rs); $i++) { 
-	$dot = [$xs[$i], $ys[$i], $rs[$i], $colors[$i], $selecteds[$i]];
+	$dot = [$xs[$i], $ys[$i], $rs[$i], "'" . $colors[$i] . "'",
+filter_var($selecteds[$i], FILTER_VALIDATE_BOOLEAN)];
 	echo json_encode($dot);
 	echo "~~~";
 	echo sql_statement($dot);
