@@ -15,7 +15,8 @@ $colors = explode(",", $_REQUEST["colors"]);
 $selecteds = explode(",", $_REQUEST["selecteds"]);
 // yay parallel arrays
 // intval
-$db->exec("DELETE FROM Dots;");
+$success = $db->exec("DELETE FROM Dots;");
+echo json_encode($success) . "<br/>";
 for ($i=0; $i < count($rs); $i++) { 
 	$dot = [$xs[$i], $ys[$i], $rs[$i], "'" . $colors[$i] . "'",
 (int) filter_var($selecteds[$i], FILTER_VALIDATE_BOOLEAN)];
@@ -25,7 +26,7 @@ for ($i=0; $i < count($rs); $i++) {
 	echo "~~~";
 	// $db->exec("DELETE FROM Dots;");
 	$success = $db->exec(sql_statement($dot));
-	echo $success;
+	echo json_encode($success);
 	echo "<br/>";
 	// echo $xs[$i];
 	// echo "<br/>";

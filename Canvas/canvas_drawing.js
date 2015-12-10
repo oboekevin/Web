@@ -21,6 +21,42 @@ function between(a, b, x) {
 	}
 }
 
+function arrows(event) {
+	var c = document.getElementById("canvas");
+	var ctx = getContext();
+	var chCode = ('charCode' in event) ? event.charCode : event.keyCode;
+	var dx = 0; var dy = 0;
+	switch(chCode) {
+		case 87:
+		case 119:
+			// w
+			dy = -1;
+			break;
+		case 65:
+		case 97:
+			// a
+			dx = -1;
+			break;
+		case 83:
+		case 115:
+			// s
+			dy = 1;
+			break;
+		case 68:
+		case 100:
+			// d
+			dx = 1;
+			break;
+	}
+	// console.log(dx); console.log(dy);
+	dots.filter(selected).forEach(function(dot) {
+		dot.x += dx * 5;
+		dot.y += dy * 5;
+		ctx.clearRect(0, 0, c.width, c.height);
+		refillDots(dots);
+	});
+}
+
 function mouseWentDown(event) {
 	var c = document.getElementById("canvas");
 	mouse_down = {x: event.x - c.offsetLeft, y: event.y - c.offsetTop};

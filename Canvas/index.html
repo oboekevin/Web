@@ -4,7 +4,7 @@
 	<script type="text/javascript" src="canvas_drawing.js"></script>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css" />
 </head>
-<body>
+<body onkeypress="arrows(event);" >
 	<!-- <canvas height=600 width=600 id="canvas" onclick="makeDot(event);" ></canvas> -->
 	<table>
 	<tr>
@@ -17,6 +17,7 @@
 		<input type="button" onclick="uncolorDots(dots);" value="Uncolor Dots" /> * <br/>
 		<br/>
 		<strong>For selected dots:</strong><br/>
+		<p>Use the WASD keys to move selected dots.</p>
 		<input type="button" onclick="clearSelection();" value="Clear Selection" /><br/>
 		<input type="button" onclick="connectDots(dots.filter(selected));" value="Make Edges" /><br/>
 		<input type="button" onclick="colorDots(dots.filter(selected));" value="Color Dots" /> * <br/>
@@ -27,7 +28,7 @@
 	</td>
 	</tr>
 	</table>
-	<div hidden id="waiting"></div>
+	<div id="waiting"></div>
 	
 	<br/>
 	</body>
