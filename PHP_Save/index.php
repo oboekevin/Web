@@ -25,10 +25,10 @@
 		<br/>
 		<?php
 			$filename = 'latest_visitor.txt';
-			if ( !file_exists($dir) ) {
+			if ( !file_exists($filename) ) {
 				$latest = "You're the first visitor!";
 			} else {
-				$latest = file_get_contents($filename);
+				$latest = file_get_contents($filename) . " was the latest user";
 			}
 			echo "<span>" . $latest . "</span>";
 		?>
