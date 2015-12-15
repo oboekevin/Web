@@ -1,0 +1,22 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Dictionary</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="api.js" ></script>
+</head>
+<body>
+	<h1>English-Esperanto Dictionary</h1>
+	<form name="f">
+		<strong>Thing to translate: </strong>
+		<input type="text" name="word" placeholder="cat" />
+		<input type="button" onclick="translate" value="Search!" />
+		<br/>
+		<select id="drop" onchange="set_destination(this);" size="2">
+			<option value="eng" selected>English to Esperanto</option>
+			<option value="epo">Esperanto to English</option>
+		</select>
+	</form>
+	<div id="result"></div>
+</body>
+</html>
