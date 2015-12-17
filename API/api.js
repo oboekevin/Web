@@ -1,4 +1,4 @@
-function translate() {
+function translation() {
 	// https://glosbe.com/gapi/translate?from=eng&dest=fra&format=xml&phrase=cat&pretty=true
 	var word = document.getElementById('word').value;
 	// if(word.length==0) return;
@@ -14,11 +14,20 @@ function translate() {
 		dest: 'epo',
 		phrase: 'cat',
 		tm: true,
-		format: 'json'
+		format: 'json',
+		pretty: true
 	}
-	xmlhttp.open("GET", "https://glosbe.com/gapi/translate?"+dw_encodeVars(args), true);
+	console.log(args);
+	var url = "https://glosbe.com/gapi/translate?"+dw_encodeVars(args);
+	console.log(url);
+	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
 }
+
+function set_destination(where) {
+	//
+}
+
 function dw_encodeVars(params) {
 	var str = '';
 	for (var i in params ) {

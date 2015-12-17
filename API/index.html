@@ -9,8 +9,8 @@
 	<h1>English-Esperanto Dictionary</h1>
 	<form name="f">
 		<strong>Thing to translate: </strong>
-		<input type="text" name="word" placeholder="cat" />
-		<input type="button" onclick="translate" value="Search!" />
+		<input type="text" id="word" name="word" placeholder="cat" />
+		<input type="button" onclick="translation();" value="Search!" />
 		<br/>
 		<select id="drop" onchange="set_destination(this);" size="2">
 			<option value="eng" selected>English to Esperanto</option>
