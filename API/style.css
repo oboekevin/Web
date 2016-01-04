@@ -11,4 +11,10 @@ a:link {
 a:hover {
   color: #565695; }
 
+tr {
+  border-bottom: 1px solid #123652; }
+
+table {
+  border-collapse: collapse; }
+
 /*# sourceMappingURL=style.css.map */

@@ -4,9 +4,9 @@ function translation() {
 	var e = document.getElementById("drop");
 	var orig = e.options[e.selectedIndex].value;
 	var destin = (orig == 'eng') ? 'epo' : 'eng';
-	console.log(word);
-	console.log(orig);
-	console.log(destin);
+	// console.log(word);
+	// console.log(orig);
+	// console.log(destin);
 	if(word.length == 0) {
 		word = 'cat';
 		orig = 'eng';
@@ -16,27 +16,35 @@ function translation() {
 	var xmlhttp = new XMLHttpRequest({mozSystem: true});
 	xmlhttp.onreadystatechange = function() {
 		document.getElementById("result").innerHTML = 'waiting';
+
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-			document.getElementById("result").innerHTML = xmlhttp.responseText;
 			j = JSON.parse(xmlhttp.responseText);
-			// console.log(xmlhttp.responseText);
-			document.getElementById("result").innerHTML = j["tuc"][0]["phrase"]["text"];
+
 			table = document.getElementById("examples");
 			table.innerHTML = "";
-			examples = j["examples"];
-			for (var i = 0; i < examples.length; i++) {
-				tr = document.createElement("tr");
-				td1 = document.createElement("td");
-				t1 = document.createTextNode(examples[i]["first"]);
-				td1.appendChild(t1);
-				td2 = document.createElement("td");
-				t2 = document.createTextNode(examples[i]["second"]);
-				td2.appendChild(t2);
-				tr.appendChild(td1);
-				tr.appendChild(td2);
-				table.appendChild(tr);
-				console.log(examples[i]);
-			};
+
+			if (j["tuc"].length > 0) {
+				document.getElementById("result").innerHTML = j["tuc"][0]["phrase"]["text"];
+
+				examples = j["examples"];
+				for (var i = 0; i < examples.length; i++) {
+					tr = document.createElement("tr");
+					td1 = document.createElement("td");
+					// t1 = document.createTextNode(examples[i]["first"]);
+					// td1.appendChild(t1);
+					td1.innerHTML = examples[i]["first"];
+					td2 = document.createElement("td");
+					// t2 = document.createTextNode(examples[i]["second"]);
+					// td2.appendChild(t2);
+					td2.innerHTML = examples[i]["second"];
+					tr.appendChild(td1);
+					tr.appendChild(td2);
+					table.appendChild(tr);
+					// console.log(examples[i]);
+				};
+			} else {
+				document.getElementById("result").innerHTML = "No translation found.";
+			}
 		}
 	}
 	var args = {
