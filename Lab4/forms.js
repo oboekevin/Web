@@ -36,7 +36,7 @@ function validate_form() {
 	}
 
 	//-----date-----//
-	re = /^\d{2}\/\d{2}\/\d{2}$/
+	re = /^\d{2}\/\d{2}\/\d{4}$/
 	if (! validate_field(form, "date", re)) {
 		return false;
 	}

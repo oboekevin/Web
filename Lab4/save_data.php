@@ -19,7 +19,8 @@
 	echo "<div hidden>";
 
 	$r = $_REQUEST;
-	$person = [$r["username"], $r["city"], $r["state"], $r["zip"], $r["email"], $r["date"], $r["phone"], ];
+	$date = substr($r["date"], 0, 6) . substr($r["date"], 8);
+	$person = [$r["username"], $r["city"], $r["state"], $r["zip"], $r["email"], $date, $r["phone"], ];
 
 	$db = new SQLite3('people.db');
 
