@@ -24,7 +24,13 @@ function translation() {
 			table.innerHTML = "";
 
 			if (j["tuc"].length > 0) {
-				document.getElementById("result").innerHTML = j["tuc"][0]["phrase"]["text"];
+				var trans = new Array();
+				for (var i = 0; i < j["tuc"].length; i++) {
+					if ("phrase" in j["tuc"][i])
+						trans.push(j["tuc"][i]["phrase"]["text"]);
+				};
+				var transl = trans.join(', ');
+				document.getElementById("result").innerHTML = transl; // j["tuc"][0]["phrase"]["text"];
 
 				examples = j["examples"];
 				for (var i = 0; i < examples.length; i++) {

@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>English-Esperanto Dictionary</h1>
-	<form name="f">
+	<form name="f" onsubmit="translation(); return false;">
 		<strong>Thing to translate: </strong>
 		<input type="text" id="word" name="word" placeholder="cat" />
 		<input type="button" onclick="translation();" value="Search!" />
@@ -19,7 +19,7 @@
 	</form>
 	<br/>
 	<div id="response_wrapper">
-		<strong>Translation: </strong><div id="result"></div><br/>
+		<strong>Translations: </strong><div id="result"></div><br/>
 		<strong>Examples: </strong><br/>
 		<table id="examples">
 		</table>
