@@ -1,0 +1,66 @@
+<html>
+<head>
+	<title>Final Project</title>
+	<style type="text/css">
+		#floaty {
+			color: #000000;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			background-color: #999999;
+			font-size: 200%;
+			border-radius: 5px;
+		}
+		body {
+			margin: 0;
+			overflow: 0;
+		}
+	</style>
+	<script src="three.min.js"></script>
+</head>
+<body>
+
+<div id="floaty">Hola</div>
+
+<script type="text/javascript">
+	var camera, scene, renderer;
+	var cube;
+	init();
+	animate();
+
+	function init() {
+		renderer = new THREE.WebGLRenderer();
+		renderer.setPixelRatio( window.devicePixelRatio );
+	    renderer.setSize(window.innerWidth, window.innerHeight);
+	    renderer.setClearColor(0xffffff, 1);
+	    document.body.appendChild(renderer.domElement);
+
+	    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+	    camera.position.set(20, 20, 20);
+	    camera.up = new THREE.Vector3(0,0,1);
+	    camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+	    scene = new THREE.Scene();
+		
+		var light = new THREE.PointLight(0xffffff, 1, 400);
+		light.position.set(10, 10, 10);
+		scene.add(light);
+
+		cube = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5), 
+			new THREE.MeshPhongMaterial({color: 0x9999ff}));
+		cube.position.set(0, 0, 0);
+		scene.add(cube);
+	}
+	function animate() {
+		requestAnimationFrame(animate);
+		render();
+	}
+	function render() {
+		renderer.render(scene, camera);
+		cube.rotation.x += 0.1;
+		cube.rotation.y += 0.05;
+	}
+</script>
+
+</body>
+</html>
