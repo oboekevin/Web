@@ -25,6 +25,11 @@
 <script type="text/javascript">
 	var camera, scene, renderer;
 	var cube;
+	var cam_rad;
+	var theta;
+	var origin;
+	var GRID_SCALE = 3;
+	var GRID_HEIGHT = GRID_SCALE / 4
 	init();
 	animate();
 
@@ -35,30 +40,75 @@
 	    renderer.setClearColor(0xffffff, 1);
 	    document.body.appendChild(renderer.domElement);
 
+		cam_rad = 20;
+	    theta = 0;
+	    origin = new THREE.Vector3(0, 0, 0);
+
 	    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-	    camera.position.set(20, 20, 20);
+	    camera.position.set(cam_rad, cam_rad, cam_rad);
 	    camera.up = new THREE.Vector3(0,0,1);
-	    camera.lookAt(new THREE.Vector3(0, 0, 0));
+	    camera.lookAt(origin);
 
 	    scene = new THREE.Scene();
 		
 		var light = new THREE.PointLight(0xffffff, 1, 400);
-		light.position.set(10, 10, 10);
+		light.position.set(10, 10, 100);
 		scene.add(light);
 
-		cube = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5), 
+		cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), 
 			new THREE.MeshPhongMaterial({color: 0x9999ff}));
 		cube.position.set(0, 0, 0);
 		scene.add(cube);
+
+		var geometry = new THREE.PlaneGeometry(5 * GRID_SCALE, 5 * GRID_SCALE);
+		var material = new THREE.MeshLambertMaterial( {color: 0x00ff00, side: THREE.DoubleSide} );
+		var plane = new THREE.Mesh( geometry, material );
+		// plane.rotation.setFromVector3(new THREE.Vector3(1, 0, 0), 'XYZ')
+		// plane.rotation.x = 1.57;
+		// plane.position.set(0, 0, 2.5 * GRID_SCALE);
+		// plane.rotation.y = 1.57;
+		console.log(plane.rotation);
+		scene.add( plane );
+
+		//make_edge_x(scene, 5, 0, 0);
+		for (var i = 0; i <= 5; i++) {
+			make_edge_x(scene, 5, 0, (-2.5 + i) * GRID_SCALE);
+		};
+		for(var j = 0; j <= 5; j++) {
+			make_edge_y(scene, 5, (-2.5 + j) * GRID_SCALE, 0);
+		};
 	}
+	function make_edge_x(s, length, x, y) {
+		var geometry = new THREE.PlaneGeometry(length * GRID_SCALE, GRID_HEIGHT);
+		var material = new THREE.MeshLambertMaterial( {color: 0x0000ff, side: THREE.DoubleSide} );
+		var plane = new THREE.Mesh( geometry, material );
+		plane.rotation.x = 1.57;
+		plane.position.set(x, y, GRID_HEIGHT / 2);
+		scene.add( plane );
+	}
+	function make_edge_y(s, length, x, y) {
+		var geometry = new THREE.PlaneGeometry(length * GRID_SCALE, 0.5 * GRID_HEIGHT);
+		var material = new THREE.MeshLambertMaterial( {color: 0x0000ff, side: THREE.DoubleSide} );
+		var plane = new THREE.Mesh( geometry, material );
+		plane.rotation.x = 1.57;
+		plane.rotation.y = 1.57;
+		plane.position.set(x, y, GRID_HEIGHT / 2);
+		scene.add( plane );
+	}
+
 	function animate() {
 		requestAnimationFrame(animate);
 		render();
 	}
 	function render() {
 		renderer.render(scene, camera);
-		cube.rotation.x += 0.1;
-		cube.rotation.y += 0.05;
+		// cube.rotation.x += 0.1;
+		// cube.rotation.y += 0.05;
+		theta += 0.01;
+		camera.position.x = cam_rad * Math.sin(theta);
+		camera.position.y = cam_rad * Math.cos(theta);
+		// camera.position.z = cam_rad * Math.cos(theta);
+		camera.lookAt(origin);
 	}
 </script>
 
