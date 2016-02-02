@@ -52,6 +52,8 @@
 	animate();
 
 	function init() {
+		Maze = getMaze();
+
 		renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio( window.devicePixelRatio );
 	    renderer.setSize(window.innerWidth, window.innerHeight);
@@ -117,6 +119,18 @@
 		// };
 		start_timer();
 	}
+
+	function getMaze() {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				return JSON.parse(xmlhttp.responseText);
+			}
+		}
+		xmlhttp.open("GET", "mazes.php?", true);
+		xmlhttp.send();
+	}
+
 	function make_wall_cube(s, x, y) {
 		var c = new THREE.Mesh(new THREE.BoxGeometry(GRID_SCALE, GRID_SCALE, GRID_HEIGHT), 
 			new THREE.MeshNormalMaterial());

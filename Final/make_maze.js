@@ -65,4 +65,4 @@ var m = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		[1, 0, 1, 0, 1, 1, 2, 0, 1, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
 // make_maze(10, 8);
-console.log(m);
+console.log(JSON.stringify(m);
