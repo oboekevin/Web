@@ -52,7 +52,8 @@
 	animate();
 
 	function init() {
-		Maze = getMaze();
+		getMaze();
+		console.log(Maze);
 
 		renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio( window.devicePixelRatio );
@@ -79,6 +80,27 @@
 		// light.position.set(50, 50, 20);
 		// scene.add(light);
 
+		
+		// make_wall_cube(scene, -1, -1);
+		// drawMaze()
+
+		var geometry = new THREE.PlaneGeometry(30 * GRID_SCALE, 30 * GRID_SCALE);
+		var material = new THREE.MeshNormalMaterial();
+		// var material = new THREE.MeshLambertMaterial( {color: 0xff9999, side: THREE.DoubleSide} );
+		var plane = new THREE.Mesh( geometry, material );
+		console.log(plane.rotation);
+		scene.add( plane );
+
+		//make_edge_x(scene, 5, 0, 0);
+		// for (var i = 0; i <= 5; i++) {
+		// 	make_edge_x(scene, 5, 0, (-2.5 + i) * GRID_SCALE);
+		// };
+		// for(var j = 0; j <= 5; j++) {
+		// 	make_edge_y(scene, 5, (-2.5 + j) * GRID_SCALE, 0);
+		// };
+		start_timer();
+	}
+	function drawMaze() {
 		for(var i = 0; i < Maze.length; i++) {
 			for(var j = 0; j < Maze[0].length; j++) {
 				// console.log(Maze);
@@ -101,30 +123,15 @@
 				// }
 			}
 		}
-		// make_wall_cube(scene, -1, -1);
-
-		var geometry = new THREE.PlaneGeometry(30 * GRID_SCALE, 30 * GRID_SCALE);
-		var material = new THREE.MeshNormalMaterial();
-		// var material = new THREE.MeshLambertMaterial( {color: 0xff9999, side: THREE.DoubleSide} );
-		var plane = new THREE.Mesh( geometry, material );
-		console.log(plane.rotation);
-		scene.add( plane );
-
-		//make_edge_x(scene, 5, 0, 0);
-		// for (var i = 0; i <= 5; i++) {
-		// 	make_edge_x(scene, 5, 0, (-2.5 + i) * GRID_SCALE);
-		// };
-		// for(var j = 0; j <= 5; j++) {
-		// 	make_edge_y(scene, 5, (-2.5 + j) * GRID_SCALE, 0);
-		// };
-		start_timer();
 	}
 
 	function getMaze() {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				return JSON.parse(xmlhttp.responseText);
+				console.log(xmlhttp.responseText);
+				Maze = JSON.parse(xmlhttp.responseText);
+				drawMaze();
 			}
 		}
 		xmlhttp.open("GET", "mazes.php?", true);
