@@ -7,9 +7,10 @@
 			position: fixed;
 			bottom: 20px;
 			right: 20px;
-			background-color: #999999;
+			background-color: #AA99FF;
 			font-size: 200%;
 			border-radius: 5px;
+			padding: 5px;
 		}
 		body {
 			margin: 0;
@@ -20,16 +21,33 @@
 </head>
 <body>
 
-<div id="floaty">Hola</div>
+<div id="floaty">
+	<div id="pre"></div>
+	<div id="timing"></div>
+	<div id="post"></div>
+</div>
 
 <script type="text/javascript">
+	var PATH = 0;
+	var WALL = 1;
+	var FINISH = 2;
+	var Maze = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+				[1, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+				[1, 1, 1, 0, 0, 0, 1, 1, 0, 1],
+				[1, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+				[1, 0, 1, 0, 1, 0, 0, 0, 1, 1],
+				[1, 0, 1, 0, 1, 0, 1, 0, 1, 1],
+				[1, 0, 1, 0, 1, 1, 2, 0, 1, 1],
+				[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
 	var camera, scene, renderer;
 	var cube;
+	var light;
 	var cam_rad;
 	var theta;
 	var origin;
 	var GRID_SCALE = 3;
-	var GRID_HEIGHT = GRID_SCALE / 4
+	var GRID_HEIGHT = 2;
+	var interval_id;
 	init();
 	animate();
 
@@ -45,38 +63,73 @@
 	    origin = new THREE.Vector3(0, 0, 0);
 
 	    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-	    camera.position.set(cam_rad, cam_rad, cam_rad);
+	    camera.position.set(GRID_SCALE * 1.3, GRID_SCALE * 1.3, GRID_HEIGHT / 2);
 	    camera.up = new THREE.Vector3(0,0,1);
-	    camera.lookAt(origin);
+	    camera.lookAt(new THREE.Vector3(GRID_SCALE * 2, GRID_SCALE * 2, GRID_HEIGHT / 2));
 
 	    scene = new THREE.Scene();
-		
-		var light = new THREE.PointLight(0xffffff, 1, 400);
-		light.position.set(10, 10, 100);
-		scene.add(light);
+				
+		light = new THREE.PointLight(0xffffff, 1, 0);
+		light.position.set(50, 50, 5);
+		scene.add( light );
 
-		cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), 
-			new THREE.MeshPhongMaterial({color: 0x9999ff}));
-		cube.position.set(0, 0, 0);
-		scene.add(cube);
+		// light = new THREE.PointLight(0xffffff, 1, 10);
+		// light.position.set(50, 50, 20);
+		// scene.add(light);
 
-		var geometry = new THREE.PlaneGeometry(5 * GRID_SCALE, 5 * GRID_SCALE);
-		var material = new THREE.MeshLambertMaterial( {color: 0x00ff00, side: THREE.DoubleSide} );
+		for(var i = 0; i < Maze.length; i++) {
+			for(var j = 0; j < Maze[0].length; j++) {
+				// console.log(Maze);
+				switch(Maze[i][j]) {
+					case 0:
+						break;
+					case 1:
+						make_wall_cube(scene, i, j);
+						break;
+					case 2:
+						make_finish(scene, i, j);
+						break;
+				}
+				// if(i == 0 || j == 0 || i == 10 || j == 10) {
+				// 	make_wall_cube(scene, i, j);
+				// } else {
+				// 	if(Math.random() < 0.3) {
+				// 		make_wall_cube(scene, i, j);
+				// 	}
+				// }
+			}
+		}
+		// make_wall_cube(scene, -1, -1);
+
+		var geometry = new THREE.PlaneGeometry(30 * GRID_SCALE, 30 * GRID_SCALE);
+		var material = new THREE.MeshNormalMaterial();
+		// var material = new THREE.MeshLambertMaterial( {color: 0xff9999, side: THREE.DoubleSide} );
 		var plane = new THREE.Mesh( geometry, material );
-		// plane.rotation.setFromVector3(new THREE.Vector3(1, 0, 0), 'XYZ')
-		// plane.rotation.x = 1.57;
-		// plane.position.set(0, 0, 2.5 * GRID_SCALE);
-		// plane.rotation.y = 1.57;
 		console.log(plane.rotation);
 		scene.add( plane );
 
 		//make_edge_x(scene, 5, 0, 0);
-		for (var i = 0; i <= 5; i++) {
-			make_edge_x(scene, 5, 0, (-2.5 + i) * GRID_SCALE);
-		};
-		for(var j = 0; j <= 5; j++) {
-			make_edge_y(scene, 5, (-2.5 + j) * GRID_SCALE, 0);
-		};
+		// for (var i = 0; i <= 5; i++) {
+		// 	make_edge_x(scene, 5, 0, (-2.5 + i) * GRID_SCALE);
+		// };
+		// for(var j = 0; j <= 5; j++) {
+		// 	make_edge_y(scene, 5, (-2.5 + j) * GRID_SCALE, 0);
+		// };
+		start_timer();
+	}
+	function make_wall_cube(s, x, y) {
+		var c = new THREE.Mesh(new THREE.BoxGeometry(GRID_SCALE, GRID_SCALE, GRID_HEIGHT), 
+			new THREE.MeshNormalMaterial());
+			// new THREE.MeshPhongMaterial({color: 0xff9999}));
+		c.position.set(x * GRID_SCALE, y * GRID_SCALE, GRID_HEIGHT / 2);
+		s.add(c);
+	}
+	function make_finish(s, x, y) {
+		var c = new THREE.Mesh(new THREE.SphereGeometry(GRID_SCALE / 3), 
+			new THREE.MeshNormalMaterial());
+			// new THREE.MeshPhongMaterial({color: 0xff9999}));
+		c.position.set(x * GRID_SCALE, y * GRID_SCALE, GRID_HEIGHT / 2);
+		s.add(c);
 	}
 	function make_edge_x(s, length, x, y) {
 		var geometry = new THREE.PlaneGeometry(length * GRID_SCALE, GRID_HEIGHT);
@@ -87,7 +140,7 @@
 		scene.add( plane );
 	}
 	function make_edge_y(s, length, x, y) {
-		var geometry = new THREE.PlaneGeometry(length * GRID_SCALE, 0.5 * GRID_HEIGHT);
+		var geometry = new THREE.PlaneGeometry(length * GRID_SCALE, GRID_HEIGHT);
 		var material = new THREE.MeshLambertMaterial( {color: 0x0000ff, side: THREE.DoubleSide} );
 		var plane = new THREE.Mesh( geometry, material );
 		plane.rotation.x = 1.57;
@@ -96,19 +149,92 @@
 		scene.add( plane );
 	}
 
+	window.addEventListener('keydown', key_listener, true);
+	function key_listener(event) {
+		console.log(event.keyCode);
+		var old_pos = new THREE.Vector3();
+		old_pos.copy(camera.position);
+		switch(event.keyCode) {
+			case 87: // w
+			case 65: // a
+			case 83: // s
+			case 68: // d
+			case 188: // <
+				// camera.rotation.y += 0.2;
+				break;
+			case 190: // >
+				
+				break;
+			case 73: // i
+				var vector = new THREE.Vector3( 0, 0, -1 );
+				vector.applyQuaternion( camera.quaternion );
+				camera.position.add(vector);
+				break;
+			case 75: // k
+				break;
+			case 37: // left arrow
+				// camera.position.x += 1;
+				camera.rotation.y += 0.2;
+				break;
+			case 38: // up arrow
+				var vector = new THREE.Vector3( 0, 0, -1 );
+				vector.applyQuaternion( camera.quaternion );
+				camera.position.add(vector);
+				break;
+			case 39: // right arrow
+				// camera.position.x -= 1;
+				camera.rotation.y -= 0.2;
+				break;
+			case 40: // down arrow
+				var vector = new THREE.Vector3( 0, 0, -1 );
+				vector.applyQuaternion( camera.quaternion );
+				camera.position.sub(vector);
+				break;
+		}
+		// find new position in terms of array units (i and j)
+		var i = Math.floor(camera.position.x / GRID_SCALE);
+		var j = Math.floor(camera.position.y / GRID_SCALE);
+		console.log([i, j]);
+		if(Maze[i][j] == WALL) {
+			camera.position.set(old_pos.x, old_pos.y, old_pos.z);
+			console.log("tried to walk into wall");
+		} else if (Maze[i][j] == FINISH) {
+			console.log("made it to finish");
+			end_game();
+		}
+	}
+
+	function timer_helper() {
+		var time = parseInt(document.getElementById('timing').innerHTML);
+		document.getElementById('timing').innerHTML = "" + (time + 1)
+	}
+
+	function start_timer() {
+		interval_id = setInterval(timer_helper, 1000);
+		document.getElementById('timing').innerHTML = "0";
+	};
+
+	function end_game() {
+		document.getElementById("pre").innerHTML = "You finished in";
+		document.getElementById("post").innerHTML = "seconds!";
+		clearInterval(interval_id);
+	}
+
 	function animate() {
 		requestAnimationFrame(animate);
 		render();
 	}
 	function render() {
 		renderer.render(scene, camera);
-		// cube.rotation.x += 0.1;
-		// cube.rotation.y += 0.05;
-		theta += 0.01;
-		camera.position.x = cam_rad * Math.sin(theta);
-		camera.position.y = cam_rad * Math.cos(theta);
-		// camera.position.z = cam_rad * Math.cos(theta);
-		camera.lookAt(origin);
+
+		// theta += 0.01;
+		// camera.position.x = cam_rad * Math.sin(theta);
+		// camera.position.y = cam_rad * Math.cos(theta);
+
+		light.position.x = camera.position.x;
+    	light.position.y = camera.position.y;
+    	// light.position.z = camera.position.z;
+		// console.log(light.position);
 	}
 </script>
 
